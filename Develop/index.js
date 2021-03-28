@@ -1,64 +1,86 @@
-// TODO: Include packages needed for this application
+
 const fs = require('fs');
 const inquirer = require('inquirer'); 
+const //this is where the file content goes? eg generateHTML?
 
-// TODO: Create an array of questions for user input
-//application repository info: 
-//Title, description, table of contents, installation, usage, license,contribution guidelines, test instructions, 
-//github username, email> to Questions section with instructions on how to reach for questions; 
-const questions = [];
-inquirer.prompt({
+
+const questions = [
+{
     name: 'project_title',
-    message: 'What is your project title?', 
+    message: 'What is your project title?',
+    //write to Title 
 },
 {
-    name: 'project_description', 
+    type: 'editor', 
+    name: 'project_description',  
     messaage: 'How would you describe your project?', 
+    //write to Description
 }, 
 {
-    name: 'project_installation'
+    type: 'editor',
+    name: 'project_installation', 
     message: 'How do we install your project?', 
+    //write to Installation
 }, 
 {
-    name: 'project_use', 
+    type: 'editor', 
+    name: 'project_use',  
     message: 'How do we use your project?', 
+    //write to Usage
 }, 
-{//needs an array of choices
-    name: 'project_license', 
+{//needs an array of choices: function to handle the license portion here? 
+    //for(const [key,value] of choices){ `do this with ${key} and ${value}`} ? 
     type: 'checkbox', 
+    name: 'project_license',  
     message:'What license would you like to use?', 
-    choices: //name of license array, 
+    choices: //name of license array, //{checked: true} or the array here []
+    //write to License AND render Badge near top
 }, 
 {
-    name: 'project_contributing', 
-    message: 'How do we contribute to your project?', 
+    type: 'editor', 
+    name: 'project_contributing',
+    message: 'How do we contribute to your project?',
+    //write to Contributing 
 }, 
 {
-    name: 'project_test', 
+    type: 'editor', 
+    name: 'project_test',
     message: 'How do we test your project?', 
+    //write to Test
 }, 
 {
     name: 'github_username', 
     message: 'What is your Gitub username?', 
+    //write to Questions
 }, 
 {
     name: 'email', 
     message: 'What is your project contact email?',
-}
-
-)
+    //write to Questions
+}]; 
 
 // TODO: Create a function to write README file
 //sections: Title, Description, Installation, Usage, License,Contributing, Tests
 //clickable links: table of contents 
 //choose license app from list of options, adds badge to top
 function writeToFile(fileName, data) {
-    
+    inquirer.prompt(questions)
+    .then(answers => {//returns a promise
+
+        fs.writeFile('full-file-path', content, err => {
+            if(err){
+                console.error(err); 
+                return; 
+            }
+        })
+    })
 }
 
 // TODO: Create a function to initialize app
+//invocation with node index.js 
 function init() {}
 
 // Function call to initialize app
-//invocation: node index.js 
+
 init();
+//do I module.export this? to a markdown? or create the markdown same as we generatedHTML?
