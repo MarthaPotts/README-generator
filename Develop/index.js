@@ -1,7 +1,9 @@
 
 const fs = require('fs');
 const inquirer = require('inquirer'); 
-const //this is where the file content goes? eg generateHTML?
+const generateMarkdown = require('./utils/generateMarkdown');
+const generateMarkdown = require('./utils/generateMarkdown.js'); 
+const license = require('./utils/license'); 
 
 
 const questions = [
@@ -33,7 +35,7 @@ const questions = [
     type: 'checkbox', 
     name: 'project_license',  
     message:'What license would you like to use?', 
-    choices: //name of license array, //{checked: true} or the array here []
+    choices: ['Apache', 'BSD', 'IBM', 'MIT', 'Mozilla', 'Creative Commons'], 
     //write to License AND render Badge near top
 }, 
 {
@@ -83,4 +85,3 @@ function init() {}
 // Function call to initialize app
 
 init();
-//do I module.export this? to a markdown? or create the markdown same as we generatedHTML?
