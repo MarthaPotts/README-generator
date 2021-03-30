@@ -1,9 +1,46 @@
-
-const fs = require('fs');
+//LIFO! structure synchronously: double check this, & only needs to be required if its used on this index, and don't need file extensions
 const inquirer = require('inquirer'); 
-const generateMarkdown = require('./utils/generateMarkdown');
-const generateMarkdown = require('./utils/generateMarkdown.js'); 
+const fs = require('fs');
 const license = require('./utils/license'); 
+const generateMarkdown = (answers) => 
+`# ${answers.project_title}
+
+## Table of Contents
+
+1. [Description](#description)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [License](#license)
+5. [Contributing](#contributing)
+    * [Questions](#questions)
+6. [Tests](#test)
+
+## Description
+
+${answers.project_description}
+
+## Installation
+
+${answers.project_installation}
+
+## Usage
+
+${answers.project_use}
+
+## License
+
+## Contributing
+
+${answers.project_contributing}
+
+### Questions
+
+${answers.github_username}
+${answers.email}
+
+## Test
+
+${answers.project_test}`
 
 
 const questions = [
@@ -61,20 +98,14 @@ const questions = [
     //write to Questions
 }]; 
 
-// TODO: Create a function to write README file
-//sections: Title, Description, Installation, Usage, License,Contributing, Tests
-//clickable links: table of contents 
-//choose license app from list of options, adds badge to top
 function writeToFile(fileName, data) {
     inquirer.prompt(questions)
-    .then(answers => {//returns a promise
+    .then(answers => {
+      const markdownContent = generateMarkdown(answers);
 
-        fs.writeFile('full-file-path', content, err => {
-            if(err){
-                console.error(err); 
-                return; 
-            }
-        })
+        fs.writeFile('readme.md', markdownContent , (err) => 
+            err ? console.log(err) : console.log('Successfully created README.md')
+        );
     })
 }
 
